@@ -1,18 +1,32 @@
 const resolvers = (models) => ({
   Query: {
-    users(parent, args, context) {
-      return models.User.find();
+    authors() {
+      return models.Author.find();
     },
+    author(root, args) {
+      return models.Author.findById(args.id);
+    }
 
   },
 
-  User: {
-
+  Post: {
+    author(root) {
+      return models.Author.findById(root.author);
+    }
+  },
+  Author: {
+    posts(root) {
+      return models.Post.find({ author: root._id }).sort({startDate: 1});
+    }
   },
   Mutation: {
-    createUser(parent, args, context) {
-      const user = new models.User(args);
-      return user.save();
+    createAuthor(parent, args) {
+      const author = new models.Author(args);
+      return author.save();
+    },
+    createPost(parent, args) {
+      const post = new models.Post(args);
+      return post.save();
     }
   },
 });

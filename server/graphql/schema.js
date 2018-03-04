@@ -3,23 +3,31 @@ const models = require('../models');
 const createResolvers = require('./resolvers');
 
 const schema = `
-  scalar Date
-  type User {
+  type Author {
     id: ID!
     email: String!
+    name: String!
+    posts: [Post]
+  }
+  type Post {
+    id: ID!
+    title: String!
+    body: String!
+    author: Author
   }
   type Query {
-    users: [User]
+    authors: [Author]
+    author(id: ID!): Author
   }
   type Mutation {
-    createUser(email: String!): User
+    createAuthor(email: String!, name: String): Author
+    createPost(title: String!, body: String!, author: ID!): Post
   }
   schema {
     query: Query
     mutation: Mutation
   }
 `;
-
 
 const executableSchema = makeExecutableSchema({
   typeDefs: [schema],
