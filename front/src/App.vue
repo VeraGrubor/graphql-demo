@@ -1,28 +1,10 @@
 <template>
-  <div id="app">
-    <h1>{{ msg }}</h1>
-    <Home/>
-  </div>
+  <router-view id="app"/>
 </template>
 
 <script>
-import Home from './components/Home'
-
-export default {
-  name: 'app',
-  components: {
-    Home
-  },
-  data () {
-    return {
-      msg: 'Welcome to Your Vue.js App!'
-    }
-  }
-}
+export default { name: 'app' }
 </script>
 
-<style lang="css">
-  #app {
-    color: #56b983;
-  }
-</style>
+<style lang="scss">
+@import './sass/app';
