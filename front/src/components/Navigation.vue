@@ -1,15 +1,15 @@
 <template>
   <nav class="w-100 block relative border">
     <div class="w-4/5 mx-auto flex text-center py-2">
-      <div class="nav__logo w-10">
-        <img src="/dist/img/logo.svg" alt="logo" class="block max-w-full h-auto">
+      <div class="w-1/5">
+        <img src="/dist/img/logo.svg" alt="logo" class="block max-w-full h-auto w-10">
       </div>
 
-      <ul class="flex w-48 block flex-auto text-center list-reset align-baseline justify-between">
-        <li class="flex-auto py-3 cursor-pointer hover:text-grey-darker uppercase opacity-50" v-for="link in links" :key="link.id" v-bind:class="{ active: link.id === active }" @click="setActiveCategory(link.id)">{{ link.label }}</li>
+      <ul class="w-3/5 block flex-auto text-center list-reset align-baseline justify-between">
+        <li class="inline-block w-1/5 py-3 cursor-pointer hover:text-grey-darker uppercase opacity-50" v-for="link in links" :key="link.id" v-bind:class="{ active: link.id === active }" @click="setActiveCategory(link.id)">{{ link.label }}</li>
       </ul>
 
-      <div class="nav__avatar w-16">
+      <div class="nav__avatar w-1/5">
         <img src="/dist/img/avatar.svg" alt="avatar" class="w-10 rounded-full">
       </div>
 
