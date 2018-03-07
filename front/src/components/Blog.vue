@@ -1,18 +1,22 @@
 <template>
-  <div class="relative w-100">
+  <div class="relative w-screen h-screen">
     <navigation @send="changeCategory" :active="activeCategory"></navigation>
-    <main class="w-4/5 mx-auto py-8">
+    <main class="w-4/5 mx-auto py-8 relative">
       <div class="header py-2">
         <h1 class="text-4xl mb-4 font-bold">{{ header.title }}</h1>
         <p class="text-xl font-light block">{{ header.desc }}</p>
       </div>
     </main>
+
+    <action text="Add User" to="/user/create"></action>
+    <action text="Add Post" to="/article/create"></action>
   </div>
 </template>
 
 <script>
 import gql from 'graphql-tag';
 import Navigation from './Navigation'
+import ActionButton from './ActionButton'
 
 const postsQuery = gql`
   query {
@@ -35,7 +39,8 @@ const postsQuery = gql`
 export default {
   name: 'homefeed',
   components: {
-    Navigation: Navigation
+    Navigation: Navigation,
+    Action: ActionButton
   },
   apollo: {
     posts: {

@@ -8,6 +8,8 @@ import { ApolloClient } from 'apollo-client'
 import { HttpLink } from 'apollo-link-http'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import VueApollo from 'vue-apollo'
+// validation
+import VeeValidate from 'vee-validate';
 
 const httpLink = new HttpLink({
   // You should use an absolute URL here
@@ -21,7 +23,9 @@ const apolloClient = new ApolloClient({
   connectToDevTools: true,
 })
 
+// use
 Vue.use(VueApollo)
+Vue.use(VeeValidate)
 
 const apolloProvider = new VueApollo({
   defaultClient: apolloClient,
