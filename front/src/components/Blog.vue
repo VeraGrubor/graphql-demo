@@ -11,17 +11,49 @@
 </template>
 
 <script>
+import gql from 'graphql-tag';
 import Navigation from './Navigation'
+
+const postsQuery = gql`
+  query {
+    authors {
+      id,
+      name,
+      email,
+      posts {
+        id,
+        body,
+        title,
+        author {
+          id
+        }
+      }
+    }
+  }
+`;
+
 export default {
   name: 'homefeed',
   components: {
     Navigation: Navigation
   },
+  apollo: {
+    posts: {
+      query: postsQuery,
+      loadingKey: 'loading',
+      pollInterval: 300,
+      update: function(data) {
+        return data;
+      }
+    }
+  },
   data() {
     return {
       activeCategory: 1,
       header: this.constructHeader(),
-      posts: []
+      posts: [],
+      loading: 0,
+      pollInterval: 300
     }
   },
   methods: {
