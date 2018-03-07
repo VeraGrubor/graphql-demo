@@ -5,13 +5,20 @@ const resolvers = (models) => ({
     },
     author(root, args) {
       return models.Author.findById(args.id);
+    },
+    post(root, args) {
+      return models.Post.findById(args.id);
+    },
+    postsByCategoryId(root, args) {
+      return models.Post.find({category: args.categoryId});
     }
-
   },
-
   Post: {
     author(root) {
       return models.Author.findById(root.author);
+    },
+    category(root) {
+      return models.Category.findById(root.category);
     }
   },
   Author: {
