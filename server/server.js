@@ -4,9 +4,12 @@ const app = express();
 const bodyParser = require('body-parser');
 const { graphiqlExpress, graphqlExpress } = require('apollo-server-express');
 const graphqlSchema = require('./graphql/schema');
+// enable cors
+const cors = require('cors');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(cors());
 mongoose.Promise = Promise;
 mongoose.connect('mongodb://localhost:27017/graphql-ll');
 
