@@ -10,12 +10,16 @@ const cors = require('cors');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors());
+const models = require('./models');
+
 mongoose.Promise = Promise;
 mongoose.connect('mongodb://localhost:27017/graphql-ll');
 
 const port = process.env.PORT || 8080;
 
 const router = express.Router();
+
+// models.Category({name: 'Fun?'}).save();
 
 
 app.use(function(err, req, res, next){

@@ -13,15 +13,23 @@ const schema = `
     id: ID!
     title: String!
     body: String!
-    author: Author
+    author: Author,
+    category: Category
+  }
+  type Category {
+    id: ID!
+    name: String!
   }
   type Query {
     authors: [Author]
     author(id: ID!): Author
+    post(id: ID!): Post
+    category(id: ID!): Category
+    postsByCategoryId(categoryId: ID!): [Post]
   }
   type Mutation {
     createAuthor(email: String!, name: String): Author
-    createPost(title: String!, body: String!, author: ID!): Post
+    createPost(title: String!, body: String!, author: ID!, category: ID!): Post
   }
   schema {
     query: Query
