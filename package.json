@@ -1,5 +1,6 @@
 {
   "devDependencies": {
+    "cors": "^2.8.4",
     "vue-router": "^3.0.1"
   }
 }

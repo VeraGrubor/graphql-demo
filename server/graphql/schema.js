@@ -1,4 +1,6 @@
-const { makeExecutableSchema } = require('graphql-tools');
+const {
+  makeExecutableSchema
+} = require('graphql-tools');
 const models = require('../models');
 const createResolvers = require('./resolvers');
 
@@ -25,6 +27,7 @@ const schema = `
     author(id: ID!): Author
     post(id: ID!): Post
     category(id: ID!): Category
+    categories: [Category]
     postsByCategoryId(categoryId: ID!): [Post]
   }
   type Mutation {

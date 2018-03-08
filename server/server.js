@@ -2,12 +2,17 @@ const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
 const bodyParser = require('body-parser');
-const { graphiqlExpress, graphqlExpress } = require('apollo-server-express');
+const {
+  graphiqlExpress,
+  graphqlExpress
+} = require('apollo-server-express');
 const graphqlSchema = require('./graphql/schema');
 // enable cors
 const cors = require('cors');
 
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 app.use(bodyParser.json());
 app.use(cors());
 const models = require('./models');
@@ -20,11 +25,24 @@ const port = process.env.PORT || 8080;
 const router = express.Router();
 
 // models.Category({name: 'Fun?'}).save();
+models.Category({
+  name: 'Lifestyle'
+}).save();
+models.Category({
+  name: 'Nature'
+}).save();
+models.Category({
+  name: 'Tech'
+}).save();
+models.Category({
+  name: 'Arhitecture'
+}).save();
 
-
-app.use(function(err, req, res, next){
+app.use(function (err, req, res, next) {
   console.error(err.stack);
-  return res.status(err.status).json({ message: err.message });
+  return res.status(err.status).json({
+    message: err.message
+  });
 });
 
 app.use('/api', router);

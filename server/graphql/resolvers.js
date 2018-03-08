@@ -10,7 +10,12 @@ const resolvers = (models) => ({
       return models.Post.findById(args.id);
     },
     postsByCategoryId(root, args) {
-      return models.Post.find({category: args.categoryId});
+      return models.Post.find({
+        category: args.categoryId
+      });
+    },
+    categories() {
+      return models.Category.find();
     }
   },
   Post: {
@@ -23,7 +28,11 @@ const resolvers = (models) => ({
   },
   Author: {
     posts(root) {
-      return models.Post.find({ author: root._id }).sort({startDate: 1});
+      return models.Post.find({
+        author: root._id
+      }).sort({
+        startDate: 1
+      });
     }
   },
   Mutation: {
