@@ -1,9 +1,9 @@
 <template>
   <div class="relative w-screen h-screen">
-    <navigation @send="changeCategory" :active="activeCategory"></navigation>
+    <navigation @send="changeCategory" :active="activeCategory" :categories="categories"></navigation>
     <main class="w-4/5 mx-auto py-8 relative">
       <div class="header py-2">
-        <h1 class="text-4xl mb-4 font-bold">{{ header.title }}</h1>
+        <h1 class="text-4xl mb-4 font-bold">{{ header.name }}</h1>
         <p class="text-xl font-light block">{{ header.desc }}</p>
       </div>
     </main>
@@ -14,27 +14,45 @@
 </template>
 
 <script>
-import gql from 'graphql-tag';
+import gql from 'graphql-tag'
 import Navigation from './Navigation'
 import ActionButton from './ActionButton'
 
 const postsQuery = gql`
   query {
     authors {
-      id,
-      name,
-      email,
+      id
+      name
+      email
       posts {
-        id,
-        body,
-        title,
+        id
+        body
+        title
         author {
           id
         }
       }
     }
   }
-`;
+`
+
+const categoriesQuery = gql`
+  query {
+    categories {
+      id
+      name
+    }
+  }
+`
+
+const categoryByIdQuery = gql`
+  query category($id: String!) {
+    category(id: $id) {
+      id
+      name
+    }
+  }
+`
 
 export default {
   name: 'homefeed',
@@ -46,10 +64,13 @@ export default {
     posts: {
       query: postsQuery,
       loadingKey: 'loading',
-      pollInterval: 300,
       update: function(data) {
-        return data;
+        return data
       }
+    },
+    categories: {
+      query: categoriesQuery,
+      loadingKey: 'loading'
     }
   },
   data() {
@@ -58,42 +79,27 @@ export default {
       header: this.constructHeader(),
       posts: [],
       loading: 0,
-      pollInterval: 300
+      categories: [],
+      category: {}
     }
   },
   methods: {
-    constructHeader(category) {
+    constructHeader(categoryId) {
       let header = {}
 
-      if (!category) {
+      if (!categoryId) {
         header.title = 'Lifestyle.'
         header.desc = this.constructHeaderDesc(header.title)
 
         return header
       }
 
-      switch (category) {
-        case 1:
-          header.title = 'Lifestyle.'
-          header.desc = this.constructHeaderDesc(header.title)
-          break
-        case 2:
-          header.title = 'Nature.'
-          header.desc = this.constructHeaderDesc(header.title)
-          break
-        case 3:
-          header.title = 'Tech.'
-          header.desc = this.constructHeaderDesc(header.title)
-          break
-        case 4:
-          header.title = 'Arhitecture.'
-          header.desc = this.constructHeaderDesc(header.title)
-          break
-        default:
-          break
-      }
+      this.categories.map((category, index) => {
+        category.id === categoryId ? Object.assign(header, category) : null
+      })
 
-      // param is passed - switch case it
+      header.desc = this.constructHeaderDesc(header.name)
+
       return header
     },
 
@@ -105,7 +111,7 @@ export default {
       if (!categoryId) return
       this.activeCategory = categoryId
       this.header = this.constructHeader(this.activeCategory)
-      // fetch new data for posts
+      // fetch post by category id now
     }
   }
 }

@@ -6,7 +6,7 @@
       </div>
 
       <ul v-if="!single" class="w-3/5 block flex-auto text-center list-reset align-baseline justify-between">
-        <li class="inline-block w-1/5 py-3 cursor-pointer hover:text-grey-darker uppercase opacity-50" v-for="link in links" :key="link.id" v-bind:class="{ active: link.id === active }" @click="setActiveCategory(link.id)">{{ link.label }}</li>
+        <li class="inline-block w-1/5 py-3 cursor-pointer hover:text-grey-darker uppercase opacity-50" v-for="category in categories" :key="category.id" v-bind:class="{ active: category.id === active }" @click="setActiveCategory(category.id)">{{ category.name }}</li>
       </ul>
 
       <h2 v-if="single" class="w-3/5 font-thin text-lg">
@@ -24,41 +24,15 @@
 <script>
 export default {
   name: 'navigation',
-  props: ['active', 'single'],
+  props: ['active', 'single', 'categories'],
   data() {
     return {
-      links: []
+      loading: ''
     }
-  },
-  mounted() {
-    this.getNavigationLinks()
   },
   methods: {
     setActiveCategory(categoryId) {
       this.$emit('send', categoryId)
-    },
-    //get navigation links from graphi
-    getNavigationLinks() {
-      let links = [
-        {
-          id: 1,
-          label: 'Lifestyle'
-        },
-        {
-          id: 2,
-          label: 'Nature'
-        },
-        {
-          id: 3,
-          label: 'Tech'
-        },
-        {
-          id: 4,
-          label: 'Arhitecture'
-        }
-      ]
-
-      this.links = links
     }
   },
   watch: {
