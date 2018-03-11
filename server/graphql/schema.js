@@ -24,12 +24,13 @@ const schema = `
     authors: [Author]
     author(id: ID!): Author
     post(id: ID!): Post
+    posts(categoryId: ID): [Post]
     category(id: ID!): Category
-    postsByCategoryId(categoryId: ID!): [Post]
   }
   type Mutation {
     createAuthor(email: String!, name: String): Author
     createPost(title: String!, body: String!, author: ID!, category: ID!): Post
+    postsByCategoryId(categoryId: ID!): [Post]
   }
   schema {
     query: Query

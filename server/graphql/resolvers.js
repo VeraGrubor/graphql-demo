@@ -9,9 +9,11 @@ const resolvers = (models) => ({
     post(root, args) {
       return models.Post.findById(args.id);
     },
-    postsByCategoryId(root, args) {
-      return models.Post.find({category: args.categoryId});
-    }
+    posts(root, args) {
+      return args.categoryId
+        ? models.Post.find({category: args.categoryId})
+        : models.Post.find();
+    },
   },
   Post: {
     author(root) {
@@ -34,6 +36,9 @@ const resolvers = (models) => ({
     createPost(parent, args) {
       const post = new models.Post(args);
       return post.save();
+    },
+    postsByCategoryId(root, args) {
+      return models.Post.find({category: args.categoryId});
     }
   },
 });
