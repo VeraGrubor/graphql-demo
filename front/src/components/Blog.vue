@@ -36,6 +36,16 @@ const postsQuery = gql`
   }
 `
 
+const postsByCategoryIdQuery = gql`
+  query postsByCategoryId($categoryId: ID!){
+  postsByCategoryId(categoryId: $categoryId){
+    id,
+    title,
+    body
+  }
+}
+`
+
 const categoriesQuery = gql`
   query {
     categories {
@@ -62,45 +72,57 @@ export default {
   },
   apollo: {
     posts: {
-      query: postsQuery,
+      query: postsByCategoryIdQuery,
       loadingKey: 'loading',
-      update: function(data) {
-        return data
+      variables() {
+        return {
+          categoryId: this.activeCategory
+        }
+      },
+      skip() {
+        return this.skipPostByCategoryQuery
+      },
+      update(data) {
+        return data.postsByCategoryId
       }
     },
     categories: {
       query: categoriesQuery,
-      loadingKey: 'loading'
-    }
+      loadingKey: 'loading',
+    },
   },
   data() {
     return {
-      activeCategory: 1,
-      header: this.constructHeader(),
+      skipPostByCategoryQuery: true,
+      activeCategory: null,
+      header: {
+        name: null,
+        desc: null
+      },
       posts: [],
       loading: 0,
       categories: [],
       category: {}
     }
   },
+  beforeUpdate(){
+    this.categories.length > 1 ? this.activeCategory = this.categories[0].id : null
+
+    this.activeCategory ? this.constructHeader(this.activeCategory) : null
+  },
   methods: {
+    setActiveCategoryOnLoad(){
+      console.warn('INITIAL LOAD, categ', this.categories)
+    },
     constructHeader(categoryId) {
-      let header = {}
-
-      if (!categoryId) {
-        header.title = 'Lifestyle.'
-        header.desc = this.constructHeaderDesc(header.title)
-
-        return header
-      }
-
       this.categories.map((category, index) => {
-        category.id === categoryId ? Object.assign(header, category) : null
+        category.id === categoryId ? Object.assign(this.header, category) : null
       })
+      console.warn('CONSTRUCT CATEGORIES',this.categories, this.header)
 
-      header.desc = this.constructHeaderDesc(header.name)
 
-      return header
+      this.header.desc = this.constructHeaderDesc(this.header.name)
+
     },
 
     constructHeaderDesc(title) {
@@ -108,10 +130,14 @@ export default {
     },
 
     changeCategory(categoryId) {
-      if (!categoryId) return
+      /*if (!categoryId) return
       this.activeCategory = categoryId
       this.header = this.constructHeader(this.activeCategory)
-      // fetch post by category id now
+      this.$apollo.queries.posts.skip = false
+      // fetch post by category id now*/
+      this.activeCategory = categoryId
+      this.constructHeader(this.activeCategory);
+      this.$apollo.queries.posts.skip = false;
     }
   }
 }
