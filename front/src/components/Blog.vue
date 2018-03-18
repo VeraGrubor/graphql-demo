@@ -98,7 +98,6 @@ export default {
         category.id === categoryId ? Object.assign(this.header, category) : null
       })
 
-      console.warn('CONSTRUCT CATEGORIES', this.categories, this.header)
       this.header.desc = this.constructHeaderDesc(this.header.name)
     },
 
