@@ -72,26 +72,26 @@
 </template>
 
 <script>
-import gql from 'graphql-tag';
+import gql from 'graphql-tag'
 import Navigation from './Navigation'
 
 const postsQuery = gql`
   query {
     authors {
-      id,
-      name,
-      email,
+      id
+      name
+      email
       posts {
-        id,
-        body,
-        title,
+        id
+        body
+        title
         author {
           id
         }
       }
     }
   }
-`;
+`
 
 const createAuthorMutation = gql`
   mutation createAuthor($name: String!, $email: String!) {
@@ -100,7 +100,7 @@ const createAuthorMutation = gql`
       email
     }
   }
-`;
+`
 
 export default {
   components: {
@@ -110,9 +110,9 @@ export default {
     posts: {
       query: postsQuery,
       loadingKey: 'loading',
-      pollInterval: 300,
+      pollInterval: 500,
       update: function(data) {
-        return data;
+        return data
       }
     }
   },
@@ -127,37 +127,46 @@ export default {
     }
   },
   computed: {
-    userCount: function () {
+    userCount: function() {
       return this.posts.authors.length
     }
   },
   methods: {
     submitForm(form) {
-
       console.warn('SHOULD CREATE AUTHOR NOW')
-      this.$apollo.mutate({
-        mutation: createAuthorMutation,
-        variables: {
-          name: this.form.name,
-          email: this.form.email
-        },
-      }).then(data => {
-        console.log('Done creating.');
-      });
+      this.$apollo
+        .mutate({
+          mutation: createAuthorMutation,
+          variables: {
+            name: this.form.name,
+            email: this.form.email
+          }
+        })
+        .then(data => {
+          console.log('Done creating.')
+        })
     }
   }
 }
 </script>
 
 <style lang="less">
-  .disabled {
-    background: #dae1e7;
-    border: 1px solid #dae1e7;
-    cursor: not-allowed;
-  }
-  .user__cunt{
-    background: linear-gradient(to right, #ff8177 0%, #ff867a 0%, #ff8c7f 21%, #f99185 52%, #cf556c 78%, #b12a5b 100%);
+.disabled {
+  background: #dae1e7;
+  border: 1px solid #dae1e7;
+  cursor: not-allowed;
+}
+.user__cunt {
+  background: linear-gradient(
+    to right,
+    #ff8177 0%,
+    #ff867a 0%,
+    #ff8c7f 21%,
+    #f99185 52%,
+    #cf556c 78%,
+    #b12a5b 100%
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  }
+}
 </style>

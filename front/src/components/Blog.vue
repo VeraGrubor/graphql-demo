@@ -3,7 +3,7 @@
     <div class="loading w-screen h-screen bg-black text-white flex justify-center items-center" v-if="loading">LOADING</div>
     <navigation @send="changeCategory" :active="activeCategory" :categories="categories"></navigation>
     <main class="w-4/5 mx-auto py-8 relative">
-      <div class="header py-2">
+      <div class="header py-2 mb-8">
         <h1 class="text-4xl mb-4 font-bold">{{ header.name }}</h1>
         <p class="text-xl font-light block">{{ header.desc }}</p>
       </div>
@@ -33,29 +33,9 @@ const postsQuery = gql`
     }
   }
 `
-
-const postsByCategoryIdMutation = gql`
-  mutation postsByCategoryId($categoryId: ID!) {
-    postsByCategoryId(categoryId: $categoryId) {
-      id
-      title
-      body
-    }
-  }
-`
-
 const categoriesQuery = gql`
   query {
     categories {
-      id
-      name
-    }
-  }
-`
-
-const categoryByIdQuery = gql`
-  query category($id: String!) {
-    category(id: $id) {
       id
       name
     }
@@ -78,7 +58,8 @@ export default {
           categoryId: this.activeCategory || ''
         }
       },
-      pollInterval: 500
+      pollInterval: 500,
+      fetchPolicy: 'network-only'
     },
     categories: {
       query: categoriesQuery,
