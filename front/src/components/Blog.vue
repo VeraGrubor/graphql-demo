@@ -1,6 +1,6 @@
 <template>
-  <div class="relative w-screen h-screen font-sans subpixel-antialiased" v-if="!loading">
-    <div class="loading w-screen h-screen bg-black text-white flex justify-center items-center" v-if="loading">LOADING</div>
+  <div class="relative h-screen font-sans subpixel-antialiased" v-if="!loading">
+    <loading :show="loading" title="Loading..."></loading>
     <navigation @send="changeCategory" :active="activeCategory" :categories="categories"></navigation>
     <main class="w-4/5 mx-auto py-8 relative">
       <div class="header py-2 mb-8">
@@ -20,6 +20,7 @@ import gql from 'graphql-tag'
 import Navigation from './Navigation'
 import ActionButton from './ActionButton'
 import Articles from './Articles'
+import Loading from './Loading'
 
 const postsQuery = gql`
   query($categoryId: ID!) {
@@ -50,7 +51,8 @@ export default {
   components: {
     Navigation: Navigation,
     Action: ActionButton,
-    Articles: Articles
+    Articles: Articles,
+    Loading: Loading
   },
   apollo: {
     posts: {

@@ -10,7 +10,9 @@
         </p>
       </div>
     </div>
-    <h1 v-if="loading">Loading ...</h1>
+
+    <loading :show="loading" title="Loading..."></loading>
+
     <div class="flex mb-4 mt-4 w-4/5 mx-auto py-8 relative" v-if="!loading">
       <div class="w-3/4">
           <form class="w-full max-w-md" v-on:submit.prevent="submitForm(form)">
@@ -75,6 +77,7 @@
 <script>
 import gql from 'graphql-tag'
 import Navigation from './Navigation'
+import Loading from './Loading'
 
 const authorsQuery = gql`
   query {
@@ -96,7 +99,8 @@ const createAuthorMutation = gql`
 
 export default {
   components: {
-    Navigation: Navigation
+    Navigation: Navigation,
+    Loading: Loading
   },
   apollo: {
     authors: {

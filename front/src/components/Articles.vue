@@ -1,7 +1,7 @@
 <template>
   <div class="w-100 block relative mt-8">
-      <h1 v-if="!articles.length">There is currently no articles available.</h1>
-      <div class="articles" v-if="articles">
+      <loading :show="!articles.length" title="There are currently no articles available."></loading>
+      <div class="articles" v-if="articles.length">
         <div class="article article--first rounded-lg overflow-hidden shadow-md relative" v-if="firstPost">
           <progressive-img class="w-full"
                            v-if="firstImage"
@@ -52,9 +52,14 @@
 </template>
 
 <script>
+import Loading from './Loading'
+
 export default {
   name: 'articles',
   props: ['articles'],
+  components: {
+    Loading: Loading
+  },
   data() {
     return {}
   },
