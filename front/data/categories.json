@@ -1,0 +1,32 @@
+{
+	"__v" : NumberInt("0"),
+	"_id" : ObjectId("5aae6c63018e822bf23a0087"),
+	"active" : true,
+	"createdAt" : ISODate("2018-03-18T14:40:51.518+01:00"),
+	"name" : "Lifestyle",
+	"updatedAt" : ISODate("2018-03-18T14:40:51.518+01:00")
+},
+{
+	"__v" : NumberInt("0"),
+	"_id" : ObjectId("5aae6c63018e822bf23a0088"),
+	"active" : false,
+	"createdAt" : ISODate("2018-03-18T14:40:51.521+01:00"),
+	"name" : "Nature",
+	"updatedAt" : ISODate("2018-03-18T14:40:51.521+01:00")
+},
+{
+	"__v" : NumberInt("0"),
+	"_id" : ObjectId("5aae6c63018e822bf23a0089"),
+	"active" : false,
+	"createdAt" : ISODate("2018-03-18T14:40:51.522+01:00"),
+	"name" : "Tech",
+	"updatedAt" : ISODate("2018-03-18T14:40:51.522+01:00")
+},
+{
+	"__v" : NumberInt("0"),
+	"_id" : ObjectId("5aae6c63018e822bf23a008a"),
+	"active" : false,
+	"createdAt" : ISODate("2018-03-18T14:40:51.522+01:00"),
+	"name" : "Arhitecture",
+	"updatedAt" : ISODate("2018-03-18T14:40:51.522+01:00")
+},

@@ -1,0 +1,48 @@
+{
+	"__v" : NumberInt("0"),
+	"_id" : ObjectId("5aa1776b65c28d66d309c875"),
+	"createdAt" : ISODate("2018-03-08T18:48:27.614+01:00"),
+	"email" : "janedoe@admin.com",
+	"name" : "test user 1",
+	"updatedAt" : ISODate("2018-03-08T18:48:27.614+01:00")
+},
+{
+	"__v" : NumberInt("0"),
+	"_id" : ObjectId("5aaee6e239ee9c2c2d8d2e68"),
+	"createdAt" : ISODate("2018-03-18T23:23:30.082+01:00"),
+	"email" : "test_91@test.com",
+	"name" : "Testni user 2 ",
+	"updatedAt" : ISODate("2018-03-18T23:23:30.082+01:00")
+},
+{
+	"__v" : NumberInt("0"),
+	"_id" : ObjectId("5aaee70639ee9c2c2d8d2e69"),
+	"createdAt" : ISODate("2018-03-18T23:24:06.016+01:00"),
+	"email" : "testni_03@mail.com",
+	"name" : "testni user 3",
+	"updatedAt" : ISODate("2018-03-18T23:24:06.016+01:00")
+},
+{
+	"__v" : NumberInt("0"),
+	"_id" : ObjectId("5aaee73b39ee9c2c2d8d2e6a"),
+	"createdAt" : ISODate("2018-03-18T23:24:59.061+01:00"),
+	"email" : "testni_04@mail.com",
+	"name" : "Testni 04",
+	"updatedAt" : ISODate("2018-03-18T23:24:59.061+01:00")
+},
+{
+	"__v" : NumberInt("0"),
+	"_id" : ObjectId("5aaee8bb39ee9c2c2d8d2e6b"),
+	"createdAt" : ISODate("2018-03-18T23:31:23.786+01:00"),
+	"email" : "test_05@mail.com",
+	"name" : "test 05",
+	"updatedAt" : ISODate("2018-03-18T23:31:23.786+01:00")
+},
+{
+	"__v" : NumberInt("0"),
+	"_id" : ObjectId("5aaee94b39ee9c2c2d8d2e6c"),
+	"createdAt" : ISODate("2018-03-18T23:33:47.921+01:00"),
+	"email" : "testni_06@mail.com",
+	"name" : "testni 06",
+	"updatedAt" : ISODate("2018-03-18T23:33:47.921+01:00")
+},
