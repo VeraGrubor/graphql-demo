@@ -10,8 +10,8 @@
         </p>
       </div>
     </div>
-
-    <div class="flex mb-4 mt-4 w-4/5 mx-auto py-8 relative">
+    <h1 v-if="loading">Loading ...</h1>
+    <div class="flex mb-4 mt-4 w-4/5 mx-auto py-8 relative" v-if="!loading">
       <div class="w-3/4">
           <form class="w-full max-w-md" v-on:submit.prevent="submitForm(form)">
             <div class="flex flex-wrap -mx-3 mb-6">
@@ -40,7 +40,8 @@
 
               <div class="w-1/3 px-3 mt-8">
                 <input type="submit"
-                v-bind:class="{disabled: errors.any()}"
+                :disabled="errors.any()"
+                :class="{disabled: errors.any()}"
                 class="appearance-none block w-full bg-teal text-white border border-teal rounded py-3 px-4 cursor-pointer" value="Create"/>
               </div>
             </div>
@@ -61,7 +62,7 @@
 
         <div class="box block w-full border mt-8 p-4 rounded-lg shadow">
           <h1 class="text-sm uppercase text-grey-darkest">User count</h1>
-          <div class="block mt-6 user__cunt text-5xl text-center">
+          <div class="block mt-6 user__cunt text-5xl text-center" v-if="userCount">
             {{userCount}}
           </div>
         </div><!-- count box -->
@@ -75,20 +76,11 @@
 import gql from 'graphql-tag'
 import Navigation from './Navigation'
 
-const postsQuery = gql`
+const authorsQuery = gql`
   query {
     authors {
       id
       name
-      email
-      posts {
-        id
-        body
-        title
-        author {
-          id
-        }
-      }
     }
   }
 `
@@ -107,12 +99,11 @@ export default {
     Navigation: Navigation
   },
   apollo: {
-    posts: {
-      query: postsQuery,
+    authors: {
+      query: authorsQuery,
       loadingKey: 'loading',
-      pollInterval: 500,
       update: function(data) {
-        return data
+        return data.authors
       }
     }
   },
@@ -122,13 +113,13 @@ export default {
         name: '',
         email: ''
       },
-      posts: [],
+      authors: [],
       loading: ''
     }
   },
   computed: {
     userCount: function() {
-      return this.posts.authors.length
+      return this.authors.length
     }
   },
   methods: {
@@ -144,6 +135,9 @@ export default {
         })
         .then(data => {
           console.log('Done creating.')
+          this.$apollo.queries.authors.refetch()
+          this.form.name = this.form.email = ''
+          form.target.reset()
         })
     }
   }

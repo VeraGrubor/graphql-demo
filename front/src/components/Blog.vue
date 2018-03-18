@@ -1,5 +1,5 @@
 <template>
-  <div class="relative w-screen h-screen" v-if="!loading">
+  <div class="relative w-screen h-screen font-sans subpixel-antialiased" v-if="!loading">
     <div class="loading w-screen h-screen bg-black text-white flex justify-center items-center" v-if="loading">LOADING</div>
     <navigation @send="changeCategory" :active="activeCategory" :categories="categories"></navigation>
     <main class="w-4/5 mx-auto py-8 relative">
@@ -28,6 +28,9 @@ const postsQuery = gql`
       title
       category {
         id
+        name
+      }
+      author {
         name
       }
     }

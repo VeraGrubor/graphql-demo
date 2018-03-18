@@ -8,12 +8,12 @@
                            :src="'https://picsum.photos/1024/768?image=' + firstImage"
                            :placeholder="'https://picsum.photos/5/5?image=' + firstImage"
                            alt="firstPost.title"/>
-          <div :class="'article__content absolute pin-x pin-y w-full h-full z-10 text-white content--' + firstPost.category.name | lowercase">
-            <div class="category uppercase opacity-75">
+          <div :class="'article__content flex items-start justify-start p-8 flex items-start justify-start pt-md pl-8 flex-col absolute pin-x pin-y w-full h-full z-10 text-white content--' + firstPost.category.name | lowercase">
+            <div class="category uppercase opacity-75 text-lg">
               {{firstPost.category.name}}
             </div>
-            <div class="title font-bold">{{firstPost.title}}</div>
-            <div class="author"></div>
+            <div class="title font-bold text-3xl max-w-xs">{{firstPost.title}}</div>
+            <div class="author bg-white hover:bg-grey-lightest text-grey-darkest font-semibold py-2 px-4 rounded opacity-75 text-xs">{{firstPost.author.name}}</div>
           </div>
         </div><!-- first one -->
 
@@ -23,12 +23,12 @@
                              :src="'https://picsum.photos/1024/768?image=' + (middleImage + index)"
                              :placeholder="'https://picsum.photos/5/5?image=' + (middleImage + index)"
                              alt="article.title"/>
-            <div :class="'article__content absolute pin-x pin-y w-full h-full z-10 text-white content--' + article.category.name | lowercase">
-            <div class="category uppercase opacity-75">
+            <div :class="'article__content absolute p-8 flex flex-col items-start justify-start pin-x pin-y w-full h-full z-10 text-white content--' + article.category.name | lowercase">
+            <div class="category uppercase opacity-75 text-lg">
               {{article.category.name}}
             </div>
-            <div class="title font-bold">{{article.title}}</div>
-            <div class="author"></div>
+            <div class="title font-bold text-3xl max-w-xs">{{article.title}}</div>
+            <div class="author bg-white hover:bg-grey-lightest text-grey-darkest font-semibold py-2 px-4 rounded opacity-75 text-xs">{{article.author.name}}</div>
           </div>
           </div>
         </div><!-- between -->
@@ -39,12 +39,12 @@
                            :src="'https://picsum.photos/1024/768?image=' + lastImage"
                            :placeholder="'https://picsum.photos/5/5?image=' + lastImage"
                            alt="lastPost.title"/>
-          <div :class="'article__content absolute pin-x pin-y w-full h-full z-10 text-white content--' +  firstPost.category.name | lowercase">
-            <div class="category uppercase opacity-75">
+          <div :class="'article__content flex flex-col items-start justify-start p-8 absolute pin-x pin-y w-full h-full z-10 text-white content--' +  firstPost.category.name | lowercase">
+            <div class="category uppercase opacity-75 text-lg">
               {{lastPost.category.name}}
             </div>
-            <div class="title font-bold">{{lastPost.title}}</div>
-            <div class="author"></div>
+            <div class="title font-bold text-3xl max-w-xs">{{lastPost.title}}</div>
+            <div class="author bg-white hover:bg-grey-lightest text-grey-darkest font-semibold py-2 px-4 rounded opacity-75 text-xs">{{lastPost.author.name}}</div>
           </div>
         </div><!-- last one -->
       </div>
@@ -141,6 +141,14 @@ export default {
       } // arhitecture
     } // article content
 
+    .title {
+      letter-spacing: 1px;
+    } // content title
+
+    .author {
+      margin-top: auto;
+    } // author
+
     &--first {
       grid-area: fi;
     } // first article
@@ -151,6 +159,14 @@ export default {
       grid-gap: 15px;
       grid-template-rows: 2fr 2fr;
       grid-auto-flow: column;
+
+      .title {
+        font-size: 1rem;
+      }
+
+      .category {
+        font-size: 0.8rem;
+      }
     } // articles in middle
 
     &--last {

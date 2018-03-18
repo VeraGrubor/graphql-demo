@@ -1,9 +1,9 @@
 <template>
   <nav class="w-100 block relative border">
     <div class="w-4/5 mx-auto flex text-center py-2">
-      <div class="w-1/5">
+      <router-link to="/" class="w-1/5">
         <img src="/dist/img/logo.svg" alt="logo" class="block max-w-full h-auto w-10">
-      </div>
+      </router-link>
 
       <ul v-if="!single" class="w-3/5 block flex-auto text-center list-reset align-baseline justify-between">
         <li class="inline-block w-1/5 py-3 cursor-pointer hover:text-grey-darker uppercase opacity-50" v-for="category in categories" :key="category.id" v-bind:class="{ active: category.id === active }" @click="setActiveCategory(category.id)">{{ category.name }}</li>
