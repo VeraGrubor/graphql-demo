@@ -7,6 +7,7 @@
         <h1 class="text-4xl mb-4 font-bold">{{ header.name }}</h1>
         <p class="text-xl font-light block">{{ header.desc }}</p>
       </div>
+      <Articles :articles="posts" />
     </main>
 
     <action text="Add User" to="/user/create"></action>
@@ -18,15 +19,15 @@
 import gql from 'graphql-tag'
 import Navigation from './Navigation'
 import ActionButton from './ActionButton'
+import Articles from './Articles'
 
 const postsQuery = gql`
-  query posts($categoryId: ID!){
-    posts{
-      id,
-      title,
-      body,
+  query($categoryId: ID!) {
+    posts(categoryId: $categoryId) {
+      id
+      title
       category {
-        id,
+        id
         name
       }
     }
@@ -34,13 +35,13 @@ const postsQuery = gql`
 `
 
 const postsByCategoryIdMutation = gql`
-  mutation postsByCategoryId($categoryId: ID!){
-  postsByCategoryId(categoryId: $categoryId){
-    id,
-    title,
-    body
+  mutation postsByCategoryId($categoryId: ID!) {
+    postsByCategoryId(categoryId: $categoryId) {
+      id
+      title
+      body
+    }
   }
-}
 `
 
 const categoriesQuery = gql`
@@ -65,18 +66,24 @@ export default {
   name: 'homefeed',
   components: {
     Navigation: Navigation,
-    Action: ActionButton
+    Action: ActionButton,
+    Articles: Articles
   },
   apollo: {
     posts: {
       query: postsQuery,
       loadingKey: 'loading',
-
+      variables() {
+        return {
+          categoryId: this.activeCategory || ''
+        }
+      },
+      pollInterval: 500
     },
     categories: {
       query: categoriesQuery,
-      loadingKey: 'loading',
-    },
+      loadingKey: 'loading'
+    }
   },
   data() {
     return {
@@ -91,16 +98,18 @@ export default {
       category: {}
     }
   },
-  beforeUpdate(){
-    this.categories.length > 1 && !this.activeCategory ? this.activeCategory = this.categories[0].id : null
+  beforeUpdate() {
+    this.categories.length > 1 && !this.activeCategory
+      ? (this.activeCategory = this.categories[0].id)
+      : null
     this.activeCategory ? this.constructHeader(this.activeCategory) : null
   },
   methods: {
     isCategoryActive(category) {
-      return category.active;
+      return category.active
     },
     getActiveCategory() {
-      var active = this.categories.filter(this.isCategoryActive);
+      var active = this.categories.filter(this.isCategoryActive)
       console.error('ACTIVE ONE', this.categories)
     },
     constructHeader(categoryId) {
@@ -108,7 +117,7 @@ export default {
         category.id === categoryId ? Object.assign(this.header, category) : null
       })
 
-      console.warn('CONSTRUCT CATEGORIES',this.categories, this.header)
+      console.warn('CONSTRUCT CATEGORIES', this.categories, this.header)
       this.header.desc = this.constructHeaderDesc(this.header.name)
     },
 
@@ -118,7 +127,7 @@ export default {
 
     changeCategory(categoryId) {
       this.activeCategory = categoryId
-      this.constructHeader(this.activeCategory);
+      this.constructHeader(this.activeCategory)
     }
   }
 }
