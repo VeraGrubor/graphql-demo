@@ -1,5 +1,6 @@
 <template>
-  <div class="relative w-screen h-screen">
+  <div class="relative w-screen h-screen" v-if="!loading">
+    <div class="loading w-screen h-screen bg-black text-white flex justify-center items-center" v-if="loading">LOADING</div>
     <navigation @send="changeCategory" :active="activeCategory" :categories="categories"></navigation>
     <main class="w-4/5 mx-auto py-8 relative">
       <div class="header py-2">
@@ -19,25 +20,21 @@ import Navigation from './Navigation'
 import ActionButton from './ActionButton'
 
 const postsQuery = gql`
-  query {
-    authors {
-      id
-      name
-      email
-      posts {
-        id
-        body
-        title
-        author {
-          id
-        }
+  query posts($categoryId: ID!){
+    posts{
+      id,
+      title,
+      body,
+      category {
+        id,
+        name
       }
     }
   }
 `
 
-const postsByCategoryIdQuery = gql`
-  query postsByCategoryId($categoryId: ID!){
+const postsByCategoryIdMutation = gql`
+  mutation postsByCategoryId($categoryId: ID!){
   postsByCategoryId(categoryId: $categoryId){
     id,
     title,
@@ -72,19 +69,9 @@ export default {
   },
   apollo: {
     posts: {
-      query: postsByCategoryIdQuery,
+      query: postsQuery,
       loadingKey: 'loading',
-      variables() {
-        return {
-          categoryId: this.activeCategory
-        }
-      },
-      skip() {
-        return this.skipPostByCategoryQuery
-      },
-      update(data) {
-        return data.postsByCategoryId
-      }
+
     },
     categories: {
       query: categoriesQuery,
@@ -93,7 +80,6 @@ export default {
   },
   data() {
     return {
-      skipPostByCategoryQuery: true,
       activeCategory: null,
       header: {
         name: null,
@@ -106,23 +92,24 @@ export default {
     }
   },
   beforeUpdate(){
-    this.categories.length > 1 ? this.activeCategory = this.categories[0].id : null
-
+    this.categories.length > 1 && !this.activeCategory ? this.activeCategory = this.categories[0].id : null
     this.activeCategory ? this.constructHeader(this.activeCategory) : null
   },
   methods: {
-    setActiveCategoryOnLoad(){
-      console.warn('INITIAL LOAD, categ', this.categories)
+    isCategoryActive(category) {
+      return category.active;
+    },
+    getActiveCategory() {
+      var active = this.categories.filter(this.isCategoryActive);
+      console.error('ACTIVE ONE', this.categories)
     },
     constructHeader(categoryId) {
       this.categories.map((category, index) => {
         category.id === categoryId ? Object.assign(this.header, category) : null
       })
+
       console.warn('CONSTRUCT CATEGORIES',this.categories, this.header)
-
-
       this.header.desc = this.constructHeaderDesc(this.header.name)
-
     },
 
     constructHeaderDesc(title) {
@@ -130,14 +117,8 @@ export default {
     },
 
     changeCategory(categoryId) {
-      /*if (!categoryId) return
-      this.activeCategory = categoryId
-      this.header = this.constructHeader(this.activeCategory)
-      this.$apollo.queries.posts.skip = false
-      // fetch post by category id now*/
       this.activeCategory = categoryId
       this.constructHeader(this.activeCategory);
-      this.$apollo.queries.posts.skip = false;
     }
   }
 }

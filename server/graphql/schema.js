@@ -20,7 +20,8 @@ const schema = `
   }
   type Category {
     id: ID!
-    name: String!
+    name: String!,
+    active: Boolean
   }
   type Query {
     authors: [Author]
@@ -28,6 +29,8 @@ const schema = `
     post(id: ID!): Post
     posts(categoryId: ID): [Post]
     category(id: ID!): Category
+    categories: [Category]
+    postsByCategoryId(categoryId: ID!): [Post]
   }
   type Mutation {
     createAuthor(email: String!, name: String): Author
