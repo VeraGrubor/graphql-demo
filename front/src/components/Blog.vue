@@ -7,7 +7,7 @@
         <h1 class="text-4xl mb-4 font-bold">{{ header.name }}</h1>
         <p class="text-xl font-light block">{{ header.desc }}</p>
       </div>
-      <Articles :articles="posts" :tran="tran" />
+      <Articles :articles="posts.slice(0,6)" :tran="tran" />
     </main>
 
     <action text="Add User" to="/user/create"></action>

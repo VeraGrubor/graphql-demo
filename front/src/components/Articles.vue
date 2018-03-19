@@ -71,7 +71,10 @@ export default {
   },
   methods: {
     getRandomNumber(min, max) {
-      return Math.floor(Math.random() * (max - min + 1)) + min
+      //return Math.floor(Math.random() * (max - min + 1)) + min
+      var stepSize = 1 / (max - min + 1),
+        nSteps = Math.floor(Math.random() / stepSize)
+      return min + nSteps
     },
     getPostImage(post, image, index = null) {
       let category = post.category.name.toLowerCase().trim()
@@ -85,13 +88,13 @@ export default {
 
   computed: {
     firstPost: function() {
-      return this.articles[0]
+      return this.articles.length >= 1 ? this.articles[0] : null
     },
     lastPost: function() {
       return this.articles.length > 1 ? this.articles[this.articles.length - 1] : null
     },
     middlePosts: function() {
-      return this.articles.length > 1 ? this.articles.slice(0, this.articles.length) : null
+      return this.articles.length >= 3 ? this.articles.slice(1, this.articles.length - 1) : null
     },
     firstImage: function() {
       return this.getRandomNumber(0, 9)
