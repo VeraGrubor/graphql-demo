@@ -35,8 +35,12 @@
                   Body
                 </label>
                 <input v-model="form.body" v-validate.initial="'required|min:15'"
-                v-bind:class="{'border-red': errors.has('body')}"
-                class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4" id="body" name="body" type="text" placeholder="Doe">
+                class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded py-3 px-4"
+                id="body"
+                name="body"
+                type="hidden"
+                 />
+                <vue-editor v-model="form.body" :editorToolbar="customToolbar"></vue-editor>
                 <p class="text-red text-xs italic" v-show="errors.has('body')">
                   {{ errors.first('body') }}
                 </p>
@@ -112,7 +116,6 @@
           <h1 class="text-sm uppercase text-grey-darkest">User count</h1>
           <div class="block mt-6 user__count text-5xl text-center" v-if="userCount">
             {{userCount}}
-            {{errors.any()}}
           </div>
         </div><!-- count box -->
 
@@ -139,6 +142,8 @@
 import gql from 'graphql-tag'
 import Navigation from './Navigation'
 import Loading from './Loading'
+import { VueEditor } from 'vue2-editor'
+import Toast from './Toast/'
 
 const authorsQuery = gql`
   query {
@@ -177,7 +182,9 @@ const postsQuery = gql`
 export default {
   components: {
     Navigation: Navigation,
-    Loading: Loading
+    Loading: Loading,
+    VueEditor: VueEditor,
+    Toast: Toast
   },
   apollo: {
     authors: {
@@ -217,7 +224,12 @@ export default {
       authors: [],
       categories: [],
       posts: [],
-      loading: true
+      loading: true,
+      customToolbar: [
+        ['bold', 'italic', 'underline'],
+        [{ list: 'ordered' }, { list: 'bullet' }],
+        ['code-block']
+      ]
     }
   },
   computed: {
@@ -248,14 +260,24 @@ export default {
           }
         })
         .then(data => {
-          console.log('Done creating.')
           this.$apollo.queries.categories.refetch()
           this.$apollo.queries.posts.refetch()
           this.form.title = this.form.body = this.form.author = ''
           this.form.category = this.categories[0].id
           // notification add
-
+          Toast.addMessage({
+            text: 'Post successfully created !',
+            type: 'success'
+          })
           // go to previous screen
+          this.$router.push('/')
+        })
+        .catch(error => {
+          Toast.addMessage({
+            text: 'Error while creating post !',
+            type: 'danger'
+          })
+          console.error(error)
         })
     }
   }
@@ -263,22 +285,5 @@ export default {
 </script>
 
 <style lang="less">
-.disabled {
-  background: #dae1e7;
-  border: 1px solid #dae1e7;
-  cursor: not-allowed;
-}
-.user__count {
-  background: linear-gradient(
-    to right,
-    #ff8177 0%,
-    #ff867a 0%,
-    #ff8c7f 21%,
-    #f99185 52%,
-    #cf556c 78%,
-    #b12a5b 100%
-  );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
+
 </style>

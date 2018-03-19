@@ -78,6 +78,7 @@
 import gql from 'graphql-tag'
 import Navigation from './Navigation'
 import Loading from './Loading'
+import Toast from './Toast/'
 
 const authorsQuery = gql`
   query {
@@ -100,7 +101,8 @@ const createAuthorMutation = gql`
 export default {
   components: {
     Navigation: Navigation,
-    Loading: Loading
+    Loading: Loading,
+    Toast: Toast
   },
   apollo: {
     authors: {
@@ -138,10 +140,20 @@ export default {
           }
         })
         .then(data => {
-          console.log('Done creating.')
           this.$apollo.queries.authors.refetch()
           this.form.name = this.form.email = ''
-          form.target.reset()
+
+          Toast.addMessage({
+            text: 'Author successfully created !',
+            type: 'success'
+          })
+        })
+        .catch(error => {
+          Toast.addMessage({
+            text: 'Error while creating author !',
+            type: 'danger'
+          })
+          console.error(error)
         })
     }
   }

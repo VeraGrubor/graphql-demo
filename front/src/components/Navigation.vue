@@ -9,8 +9,8 @@
         <li class="inline-block w-1/5 py-3 cursor-pointer hover:text-grey-darker uppercase opacity-50" v-for="category in categories" :key="category.id" v-bind:class="{ active: category.id === active }" @click="setActiveCategory(category.id)">{{ category.name }}</li>
       </ul>
 
-      <h2 v-if="single" class="w-3/5 font-thin text-lg">
-        Mutations
+      <h2 v-if="single" class="w-3/5 font-thin text-lg py-3 uppercase opacity-50">
+        Work with mutations
       </h2>
 
       <div class="nav__avatar w-1/5">
