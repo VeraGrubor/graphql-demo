@@ -47,13 +47,13 @@ let colors = {
   'transparent': 'transparent',
 
   'black': '#22292f',
-  'grey-darkest': '#3d4852',
-  'grey-darker': '#606f7b',
+  'grey-darkest': '#5F6F6F',
+  'grey-darker': '#C0BEBF',
   'grey-dark': '#8795a1',
   'grey': '#b8c2cc',
   'grey-light': '#dae1e7',
   'grey-lighter': '#f1f5f8',
-  'grey-lightest': '#f8fafc',
+  'grey-lightest': '#DED7D7',
   'white': '#ffffff',
 
   'red-darkest': '#3b0d0c',

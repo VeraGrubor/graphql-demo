@@ -47,7 +47,7 @@ const categoriesQuery = gql`
 `
 
 export default {
-  name: 'homefeed',
+  name: 'Blog',
   components: {
     Navigation: Navigation,
     Action: ActionButton,
