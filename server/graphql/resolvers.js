@@ -18,9 +18,15 @@ const resolvers = (models) => ({
       return models.Category.find();
     },
     posts(root, args) {
-      return args.categoryId
-        ? models.Post.find({category: args.categoryId})
-        : models.Post.find();
+      return args.categoryId ?
+        models.Post.find({
+          category: args.categoryId
+        }).sort({
+          createdAt: -1
+        }) :
+        models.Post.find().sort({
+          createdAt: -1
+        })
     },
   },
   Post: {
@@ -50,7 +56,9 @@ const resolvers = (models) => ({
       return post.save();
     },
     postsByCategoryId(root, args) {
-      return models.Post.find({category: args.categoryId});
+      return models.Post.find({
+        category: args.categoryId
+      });
     }
   },
 });
