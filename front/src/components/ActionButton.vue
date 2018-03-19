@@ -1,5 +1,5 @@
 <template>
-  <router-link :to="to" class="action__button absolute bg-white hover:bg-grey-lightest text-grey-darkest font-semibold py-2 px-4 border border-grey-light rounded shadow-lg z-20">
+  <router-link :to="to" class="action__button absolute text-white font-semibold py-2 px-4 rounded shadow-lg z-20">
       {{text}}
   </router-link>
 </template>
@@ -15,7 +15,7 @@ export default {
   right: 6rem;
   bottom: 4rem;
   text-decoration: none;
-  color: inherit;
+  background-image: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%);
 
   & + .action__button {
     bottom: 1rem;
