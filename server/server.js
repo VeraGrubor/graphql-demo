@@ -25,7 +25,7 @@ const port = process.env.PORT || 8080;
 const router = express.Router();
 
 // models.Category({name: 'Fun?'}).save();
-/**models.Category({
+/*models.Category({
   name: 'Lifestyle',
   active: 1
 }).save();
