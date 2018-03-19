@@ -7,7 +7,7 @@
         <h1 class="text-4xl mb-4 font-bold">{{ header.name }}</h1>
         <p class="text-xl font-light block">{{ header.desc }}</p>
       </div>
-      <Articles :articles="posts" />
+      <Articles :articles="posts" :tran="tran" />
     </main>
 
     <action text="Add User" to="/user/create"></action>
@@ -64,7 +64,12 @@ export default {
         }
       },
       pollInterval: 500,
-      fetchPolicy: 'network-only'
+      fetchPolicy: 'network-only',
+      update(data) {
+        console.warn('should set tran to TRUE now')
+        this.tran = false
+        return data.posts
+      }
     },
     categories: {
       query: categoriesQuery,
@@ -81,10 +86,12 @@ export default {
       posts: [],
       loading: 0,
       categories: [],
-      category: {}
+      category: {},
+      tran: null
     }
   },
   beforeUpdate() {
+    this.tran = true
     this.categories.length > 1 && !this.activeCategory
       ? (this.activeCategory = this.categories[0].id)
       : null

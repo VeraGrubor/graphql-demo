@@ -2,51 +2,57 @@
   <div class="w-100 block relative mt-8">
       <loading :show="!articles.length" title="There are currently no articles available."></loading>
       <div class="articles" v-if="articles.length">
-        <div class="article article--first rounded-lg overflow-hidden shadow-md relative" v-if="firstPost">
-          <progressive-img class="w-full"
-                           v-if="firstImage"
-                           :src="'https://picsum.photos/1024/768?image=' + firstImage"
-                           :placeholder="'https://picsum.photos/5/5?image=' + firstImage"
-                           alt="firstPost.title"/>
-          <div :class="'article__content flex items-start justify-start p-8 flex items-start justify-start pt-md pl-8 flex-col absolute pin-x pin-y w-full h-full z-10 text-white content--' + firstPost.category.name | lowercase">
-            <div class="category uppercase opacity-75 text-lg">
-              {{firstPost.category.name}}
-            </div>
-            <div class="title font-bold text-3xl max-w-xs">{{firstPost.title}}</div>
-            <div class="author bg-white hover:bg-grey-lightest text-grey-darkest font-semibold py-2 px-4 rounded opacity-75 text-xs">{{firstPost.author.name}}</div>
-          </div>
-        </div><!-- first one -->
-
-        <div class="article article--between" v-if="middlePosts">
-          <div v-for="(article,index) in middlePosts" :key="article.id" class="rounded-lg overflow-hidden shadow-md relative">
+        <transition name="slide-fade-left" appear>
+          <div class="article article--first rounded-lg overflow-hidden shadow-md relative" v-if="tran && firstPost">
             <progressive-img class="w-full"
-                             :src="'https://picsum.photos/1024/768?image=' + (middleImage + index)"
-                             :placeholder="'https://picsum.photos/5/5?image=' + (middleImage + index)"
-                             alt="article.title"/>
-            <div :class="'article__content absolute p-8 flex flex-col items-start justify-start pin-x pin-y w-full h-full z-10 text-white content--' + article.category.name | lowercase">
-            <div class="category uppercase opacity-75 text-lg">
-              {{article.category.name}}
+                            v-if="firstImage"
+                            :src="'https://picsum.photos/1024/768?image=' + firstImage"
+                            :placeholder="'https://picsum.photos/5/5?image=' + firstImage"
+                            alt="firstPost.title"/>
+            <div :class="'article__content flex items-start justify-start p-8 flex items-start justify-start pt-md pl-8 flex-col absolute pin-x pin-y w-full h-full z-10 text-white content--' + firstPost.category.name | lowercase">
+              <div class="category uppercase opacity-75 text-lg">
+                {{firstPost.category.name}}
+              </div>
+              <div class="title font-bold text-3xl max-w-xs">{{firstPost.title}}</div>
+              <div class="author bg-white hover:bg-grey-lightest text-grey-darkest font-semibold py-2 px-4 rounded opacity-75 text-xs">{{firstPost.author.name}}</div>
             </div>
-            <div class="title font-bold text-3xl max-w-xs">{{article.title}}</div>
-            <div class="author bg-white hover:bg-grey-lightest text-grey-darkest font-semibold py-2 px-4 rounded opacity-75 text-xs">{{article.author.name}}</div>
-          </div>
-          </div>
-        </div><!-- between -->
+          </div><!-- first one -->
+        </transition>
 
-        <div class="article article--last rounded-lg overflow-hidden shadow-md relative" v-if="lastPost">
-          <progressive-img class="w-full"
-                           v-if="lastImage"
-                           :src="'https://picsum.photos/1024/768?image=' + lastImage"
-                           :placeholder="'https://picsum.photos/5/5?image=' + lastImage"
-                           alt="lastPost.title"/>
-          <div :class="'article__content flex flex-col items-start justify-start p-8 absolute pin-x pin-y w-full h-full z-10 text-white content--' +  firstPost.category.name | lowercase">
-            <div class="category uppercase opacity-75 text-lg">
-              {{lastPost.category.name}}
+        <transition name="slide-fade-top" appear>
+          <div class="article article--between" v-if="tran && middlePosts">
+            <div v-for="(article,index) in middlePosts" :key="article.id" class="rounded-lg overflow-hidden shadow-md relative">
+              <progressive-img class="w-full"
+                              :src="'https://picsum.photos/1024/768?image=' + (middleImage + index)"
+                              :placeholder="'https://picsum.photos/5/5?image=' + (middleImage + index)"
+                              alt="article.title"/>
+              <div :class="'article__content absolute p-8 flex flex-col items-start justify-start pin-x pin-y w-full h-full z-10 text-white content--' + article.category.name | lowercase">
+              <div class="category uppercase opacity-75 text-lg">
+                {{article.category.name}}
+              </div>
+              <div class="title font-bold text-3xl max-w-xs">{{article.title}}</div>
+              <div class="author bg-white hover:bg-grey-lightest text-grey-darkest font-semibold py-2 px-4 rounded opacity-75 text-xs">{{article.author.name}}</div>
             </div>
-            <div class="title font-bold text-3xl max-w-xs">{{lastPost.title}}</div>
-            <div class="author bg-white hover:bg-grey-lightest text-grey-darkest font-semibold py-2 px-4 rounded opacity-75 text-xs">{{lastPost.author.name}}</div>
-          </div>
-        </div><!-- last one -->
+            </div>
+          </div><!-- between -->
+          </transition>
+
+        <transition name="slide-fade-bottom" appear>
+          <div class="article article--last rounded-lg overflow-hidden shadow-md relative" v-if="tran && lastPost">
+            <progressive-img class="w-full"
+                            v-if="lastImage"
+                            :src="'https://picsum.photos/1024/768?image=' + lastImage"
+                            :placeholder="'https://picsum.photos/5/5?image=' + lastImage"
+                            alt="lastPost.title"/>
+            <div :class="'article__content flex flex-col items-start justify-start p-8 absolute pin-x pin-y w-full h-full z-10 text-white content--' +  firstPost.category.name | lowercase">
+              <div class="category uppercase opacity-75 text-lg">
+                {{lastPost.category.name}}
+              </div>
+              <div class="title font-bold text-3xl max-w-xs">{{lastPost.title}}</div>
+              <div class="author bg-white hover:bg-grey-lightest text-grey-darkest font-semibold py-2 px-4 rounded opacity-75 text-xs">{{lastPost.author.name}}</div>
+            </div>
+          </div><!-- last one -->
+        </transition>
       </div>
   </div>
 </template>
@@ -56,7 +62,7 @@ import Loading from './Loading'
 
 export default {
   name: 'articles',
-  props: ['articles'],
+  props: ['articles', 'tran'],
   components: {
     Loading: Loading
   },
@@ -180,10 +186,64 @@ export default {
   } // article
 } // articles
 
+.slide-fade-left-enter-active {
+  transition: all 0.8s ease;
+}
+.slide-fade-left-leave-active {
+  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+.slide-fade-left-enter,
+.slide-fade-left-leave-to {
+  transform: translateX(15px);
+  opacity: 0;
+}
+
+.slide-fade-right-enter-active {
+  transition: all 0.8s ease;
+}
+.slide-fade-right-leave-active {
+  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+.slide-fade-right-enter,
+.slide-fade-right-leave-to {
+  transform: translateX(-15px);
+  opacity: 0;
+}
+
+.slide-fade-bottom-enter-active {
+  transition: all 0.8s ease;
+}
+.slide-fade-bottom-leave-active {
+  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+.slide-fade-bottom-enter,
+.slide-fade-bottom--leave-to {
+  transform: translateY(15px);
+  opacity: 0;
+}
+
+.slide-fade-top-enter-active {
+  transition: all 0.8s ease;
+}
+.slide-fade-top-leave-active {
+  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+.slide-fade-top-enter,
+.slide-fade-top--leave-to {
+  transform: translateY(-15px);
+  opacity: 0;
+}
+
 .progressive-image {
   height: 100%;
 }
+
+.article--first {
+  .progressive-image-main {
+    height: 100%;
+  }
+}
 .progressive-image-main {
-  height: 100% !important;
+  object-fit: cover;
 }
 </style>
