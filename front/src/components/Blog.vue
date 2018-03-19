@@ -66,7 +66,6 @@ export default {
       pollInterval: 500,
       fetchPolicy: 'network-only',
       update(data) {
-        console.warn('should set tran to TRUE now')
         this.tran = false
         return data.posts
       }

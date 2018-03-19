@@ -35,11 +35,6 @@ export default {
       this.$emit('send', categoryId)
     }
   }
-  /*watch: {
-    active: function(newVal, oldVal) {
-      console.log('Prop changed: ', newVal, ' | was: ', oldVal)
-    }
-  }*/
 }
 </script>
 

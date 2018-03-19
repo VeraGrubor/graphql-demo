@@ -71,7 +71,7 @@ export default {
   },
   methods: {
     getRandomNumber(min, max) {
-      return Math.floor(Math.random() * (max - min + 1) + min)
+      return Math.floor(Math.random() * (max - min + 1)) + min
     },
     getPostImage(post, image, index = null) {
       let category = post.category.name.toLowerCase().trim()
@@ -82,11 +82,7 @@ export default {
       }
     }
   },
-  /*watch: {
-    active: function(newVal, oldVal) {
-      console.log('Prop changed: ', newVal, ' | was: ', oldVal)
-    }
-  },*/
+
   computed: {
     firstPost: function() {
       return this.articles[0]
@@ -98,13 +94,13 @@ export default {
       return this.articles.length > 1 ? this.articles.slice(0, this.articles.length) : null
     },
     firstImage: function() {
-      return this.getRandomNumber(0, 10)
+      return this.getRandomNumber(0, 9)
     },
     lastImage: function() {
       return this.getRandomNumber(0, 10)
     },
     middleImage: function() {
-      return this.getRandomNumber(0, 10)
+      return this.getRandomNumber(0, 8)
     }
   },
   filters: {

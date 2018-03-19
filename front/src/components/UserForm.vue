@@ -64,7 +64,7 @@
 
         <div class="box block w-full border mt-8 p-4 rounded-lg shadow">
           <h1 class="text-sm uppercase text-grey-darkest">User count</h1>
-          <div class="block mt-6 user__cunt text-5xl text-center" v-if="userCount">
+          <div class="block mt-6 user__count text-5xl text-center" v-if="userCount">
             {{userCount}}
           </div>
         </div><!-- count box -->
@@ -154,7 +154,7 @@ export default {
   border: 1px solid #dae1e7;
   cursor: not-allowed;
 }
-.user__cunt {
+.user__count {
   background: linear-gradient(
     to right,
     #ff8177 0%,
