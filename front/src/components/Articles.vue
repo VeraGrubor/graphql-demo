@@ -4,10 +4,10 @@
       <div class="articles" v-if="articles.length">
         <transition name="slide-fade-left" appear>
           <div class="article article--first rounded-lg overflow-hidden shadow-md relative" v-if="tran && firstPost">
-            <progressive-img class="w-full"
+            <v-lazy-image class="w-full"
                             v-if="firstImage"
                             :src="'https://picsum.photos/1024/768?image=' + firstImage"
-                            :placeholder="'https://picsum.photos/5/5?image=' + firstImage"
+                            src-placeholder="/dist/img/blur.jpeg"
                             alt="firstPost.title"/>
             <div :class="'article__content flex items-start justify-start p-8 flex items-start justify-start pt-md pl-8 flex-col absolute pin-x pin-y w-full h-full z-10 text-white content--' + firstPost.category.name | lowercase">
               <div class="category uppercase opacity-75 text-lg">
@@ -22,9 +22,9 @@
         <transition name="slide-fade-top" appear>
           <div class="article article--between" v-if="tran && middlePosts">
             <div v-for="(article,index) in middlePosts" :key="article.id" class="rounded-lg overflow-hidden shadow-md relative">
-              <progressive-img class="w-full"
+              <v-lazy-image class="w-full"
                               :src="'https://picsum.photos/1024/768?image=' + (middleImage + index)"
-                              :placeholder="'https://picsum.photos/5/5?image=' + (middleImage + index)"
+                              src-placeholder="/dist/img/blur.jpeg"
                               alt="article.title"/>
               <div :class="'article__content absolute p-8 flex flex-col items-start justify-start pin-x pin-y w-full h-full z-10 text-white content--' + article.category.name | lowercase">
               <div class="category uppercase opacity-75 text-lg">
@@ -39,10 +39,10 @@
 
         <transition name="slide-fade-bottom" appear>
           <div class="article article--last rounded-lg overflow-hidden shadow-md relative" v-if="tran && lastPost">
-            <progressive-img class="w-full"
+            <v-lazy-image class="w-full"
                             v-if="lastImage"
                             :src="'https://picsum.photos/1024/768?image=' + lastImage"
-                            :placeholder="'https://picsum.photos/5/5?image=' + lastImage"
+                            src-placeholder="/dist/img/blur.jpeg"
                             alt="lastPost.title"/>
             <div :class="'article__content flex flex-col items-start justify-start p-8 absolute pin-x pin-y w-full h-full z-10 text-white content--' +  firstPost.category.name | lowercase">
               <div class="category uppercase opacity-75 text-lg">
@@ -242,8 +242,20 @@ export default {
   .progressive-image-main {
     height: 100%;
   }
+  .v-lazy-image {
+    height: 100%;
+  }
 }
 .progressive-image-main {
   object-fit: cover;
+}
+
+.v-lazy-image {
+  object-fit: cover;
+  filter: blur(30px);
+  transition: filter 0.3s;
+}
+.v-lazy-image-loaded {
+  filter: blur(0);
 }
 </style>

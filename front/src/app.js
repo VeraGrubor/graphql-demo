@@ -4,7 +4,9 @@ import App from './App.vue'
 import router from './router'
 import './app.css'
 // image
-import VueProgressiveImage from 'vue-progressive-image'
+import {
+  VLazyImagePlugin
+} from "v-lazy-image";
 // apollo
 import {
   ApolloClient
@@ -34,9 +36,7 @@ const apolloClient = new ApolloClient({
 // use
 Vue.use(VueApollo)
 Vue.use(VeeValidate)
-Vue.use(VueProgressiveImage, {
-  blur: 30
-})
+Vue.use(VLazyImagePlugin);
 
 const apolloProvider = new VueApollo({
   defaultClient: apolloClient,
