@@ -1,5 +1,5 @@
 <template>
-  <router-link :to="to" class="action__button absolute text-white font-semibold py-2 px-4 rounded shadow-lg z-20">
+  <router-link :to="to" class="action__button fixed text-white font-semibold py-2 px-4 rounded shadow-lg z-20">
       {{text}}
   </router-link>
 </template>

@@ -4,8 +4,8 @@
     <navigation @send="changeCategory" :active="activeCategory" :categories="categories"></navigation>
     <main class="w-4/5 mx-auto py-8 relative">
       <div class="header py-2 mb-8">
-        <h1 class="text-4xl mb-4 font-bold">{{ header.name }}</h1>
-        <p class="text-xl font-light block">{{ header.desc }}</p>
+        <h1 class="text-4xl md:text-3xl mb-4 font-bold">{{ header.name }}</h1>
+        <p class="text-xl md:text-lg font-light block">{{ header.desc }}</p>
       </div>
       <Articles :articles="posts.slice(0,6)" :tran="tran" />
     </main>

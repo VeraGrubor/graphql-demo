@@ -13,7 +13,7 @@
       </g>
     </svg>
 
-  <h4 class="title mt-8 text-grey-darkest">{{title}}</h4>
+  <h4 class="title md:text-sm mt-8 text-grey-darkest">{{title}}</h4>
   </div>
 </template>
 
@@ -24,14 +24,19 @@ export default {
 }
 </script>
 
-<style lang="less" scoped>
+<style lang="scss" scoped>
+@import "../sass/media";
+
 .plane {
   animation: spin 3s linear infinite;
   transform-origin: 50% 50%;
 }
 
 svg {
-  max-width: 80%;
+  max-width: 60%;
+  @include media('>=desktop') {
+    max-width: 80%;
+  }
 }
 
 @keyframes spin {

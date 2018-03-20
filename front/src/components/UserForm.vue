@@ -4,17 +4,17 @@
 
     <div class="flex mb-3 mt-8 w-4/5 mx-auto relative">
       <div class="w-full">
-        <h1 class="title">Fun with Forms in Vue 2.0</h1>
-        <p class="subtitle">
-          Learn how to work with forms, including <strong>validation</strong>!
+        <h1 class="text-4xl md:text-3xl mb-4 font-bold">Create new author.</h1>
+        <p class="text-xl md:text-lg font-light block">
+          Authors query, create author mutation.
         </p>
       </div>
     </div>
 
     <loading :show="loading" title="Loading..."></loading>
 
-    <div class="flex mb-4 mt-4 w-4/5 mx-auto py-8 relative" v-if="!loading">
-      <div class="w-3/4">
+    <div class="flex flex-col lg:flex-row mb-4 mt-4 w-4/5 mx-auto py-8 relative" v-if="!loading">
+      <div class="w-3/4 md:mr-8 xs:w-full main__form">
           <form class="w-full max-w-md" v-on:submit.prevent="submitForm(form)">
             <div class="flex flex-wrap -mx-3 mb-6">
               <div class="w-full px-3 mb-6 md:mb-0">
@@ -50,8 +50,8 @@
           </form><!-- create author form -->
       </div><!-- form column -->
 
-      <div class="w-1/4">
-        <div class="box block w-full p-4 border rounded-lg shadow">
+      <div class="w-1/4 count__boxes flex-wrap">
+        <div class="box block w-full xs:h-48 border p-4 rounded-lg shadow">
           <h1 class="text-sm uppercase text-grey-darkest">Form values</h1>
           <div class="block mt-4">
             <ul class="list-reset">
@@ -62,7 +62,7 @@
           </div><!-- block-->
         </div><!-- state box -->
 
-        <div class="box block w-full border mt-8 p-4 rounded-lg shadow">
+        <div class="box block w-full xs:h-48 border lg:mt-8 p-4 rounded-lg shadow">
           <h1 class="text-sm uppercase text-grey-darkest">User count</h1>
           <div class="block mt-6 user__count text-5xl text-center" v-if="userCount">
             {{userCount}}

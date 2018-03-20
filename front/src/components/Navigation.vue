@@ -6,10 +6,10 @@
       </router-link>
 
       <ul v-if="!single" class="w-3/5 block flex-auto text-center list-reset align-baseline justify-between">
-        <li class="inline-block w-1/5 py-3 cursor-pointer hover:text-grey-darker uppercase opacity-50" v-for="category in categories" :key="category.id" v-bind:class="{ active: category.id === active }" @click="setActiveCategory(category.id)">{{ category.name }}</li>
+        <li class="inline-block w-1/5 py-3 cursor-pointer md:text-sm hover:text-grey-darker uppercase opacity-50" v-for="category in categories" :key="category.id" v-bind:class="{ active: category.id === active }" @click="setActiveCategory(category.id)">{{ category.name }}</li>
       </ul>
 
-      <h2 v-if="single" class="w-3/5 font-thin text-lg py-3 uppercase opacity-50">
+      <h2 v-if="single" class="w-3/5 font-thin text-lg md:text-sm py-3 uppercase opacity-50">
         Work with mutations
       </h2>
 

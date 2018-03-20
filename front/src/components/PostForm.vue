@@ -4,18 +4,18 @@
 
     <div class="flex mb-3 mt-8 w-4/5 mx-auto relative">
       <div class="w-full">
-        <h1 class="title">Fun with Forms in Vue 2.0</h1>
-        <p class="subtitle">
-          Learn how to work with forms, including <strong>validation</strong>!
+        <h1 class="text-4xl md:text-3xl mb-4 font-bold">Create new post.</h1>
+        <p class="text-xl md:text-lg font-light block">
+          Authors query, categories query, posts query, create post mutation.
         </p>
       </div>
     </div>
 
     <loading :show="loading" title="Loading..."></loading>
 
-    <div class="flex mb-4 mt-4 w-4/5 mx-auto py-8 relative" v-if="!loading">
-      <div class="w-3/4">
-          <form class="w-full max-w-md" v-on:submit.prevent="submitForm(form)">
+    <div class="flex flex-col lg:flex-row mb-4 mt-4 w-4/5 mx-auto py-8 relative" v-if="!loading">
+      <div class="w-3/4 md:mr-8 xs:w-full main__form">
+          <form class="w-full max-w-md sm:max-w-full" v-on:submit.prevent="submitForm(form)">
             <div class="flex flex-wrap -mx-3 mb-6">
 
               <div class="w-full px-3 mb-4">
@@ -39,8 +39,12 @@
                 id="body"
                 name="body"
                 type="hidden"
-                 />
-                <vue-editor v-model="form.body" :editorToolbar="customToolbar"></vue-editor>
+                 /><!-- editor honey pot field -->
+
+                <div class="w-full pb-3 mb-1 border-red">
+                  <vue-editor v-model="form.body" :editorToolbar="customToolbar"></vue-editor>
+                </div><!-- editor -->
+
                 <p class="text-red text-xs italic" v-show="errors.has('body')">
                   {{ errors.first('body') }}
                 </p>
@@ -100,8 +104,8 @@
           </form><!-- create author form -->
       </div><!-- form column -->
 
-      <div class="w-1/4">
-        <div class="box block w-full p-4 border rounded-lg shadow">
+      <div class="w-1/4 count__boxes flex-wrap">
+        <div class="box block w-full xs:h-48 p-4 border rounded-lg shadow">
           <h1 class="text-sm uppercase text-grey-darkest">Form values</h1>
           <div class="block mt-4">
             <ul class="list-reset">
@@ -112,21 +116,21 @@
           </div><!-- block-->
         </div><!-- state box -->
 
-        <div class="box block w-full border mt-8 p-4 rounded-lg shadow">
+        <div class="box block w-full xs:h-48 border lg:mt-8 p-4 rounded-lg shadow">
           <h1 class="text-sm uppercase text-grey-darkest">User count</h1>
           <div class="block mt-6 user__count text-5xl text-center" v-if="userCount">
             {{userCount}}
           </div>
         </div><!-- count box -->
 
-        <div class="box block w-full border mt-8 p-4 rounded-lg shadow">
+        <div class="box block w-full xs:h-48 sm:flex-auto border mt-4 lg:mt-8 p-4 rounded-lg shadow">
           <h1 class="text-sm uppercase text-grey-darkest">Categories count</h1>
           <div class="block mt-6 user__count text-5xl text-center" v-if="categoryCount">
             {{categoryCount}}
           </div>
         </div><!-- count box -->
 
-        <div class="box block w-full border mt-8 p-4 rounded-lg shadow">
+        <div class="box block w-full xs:h-48 border mt-4 lg:mt-8 p-4 rounded-lg shadow">
           <h1 class="text-sm uppercase text-grey-darkest">Posts count</h1>
           <div class="block mt-6 user__count text-5xl text-center" v-if="postCount">
             {{postCount}}
@@ -284,6 +288,32 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="scss">
+  @import '../sass/media';
 
+  .count__boxes {
+    @include media('<=tablet') {
+      display: flex;
+      width: 100%;
+      align-items: stretch;
+      justify-content: space-around;
+      > div {
+        flex: 1 0 45%;
+        margin-right: 1rem;
+        min-height: 10rem;
+      }
+    }
+  }// count boxes
+
+  .main__form {
+    @include media('<=tablet') {
+      width: 100%;
+    }
+  }
+
+  .form__wrapper {
+    @include media('<=tablet') {
+      flex-direction: column;
+    }
+  }
 </style>

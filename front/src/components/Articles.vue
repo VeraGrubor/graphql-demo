@@ -114,7 +114,9 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="scss">
+@import '../sass/media';
+
 .articles {
   display: grid;
   grid-gap: 20px;
@@ -123,7 +125,29 @@ export default {
     'fi fi fi fi bt bt bt bt'
     'fi fi fi fi la la la la'
     'fi fi fi fi la la la la';
-  grid-auto-rows: 150px;
+  grid-auto-rows: 5rem;
+
+  @include media('>desktop') {
+    grid-auto-row: 150px;
+   }
+
+  @include media('<=tablet') {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+
+    .article--first,
+    .article--last,
+    .article--between {
+      width: 100%;
+      padding: 2rem 0;
+    }
+
+    .article-between {
+      display: flex;
+    }
+
+  }
 
   .article {
     &__content {
