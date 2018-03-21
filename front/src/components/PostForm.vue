@@ -1,5 +1,5 @@
 <template>
-  <div class="h-screen w-screen">
+  <div class="relative">
     <navigation :active="activeCategory" :single="true"></navigation>
 
     <div class="flex mb-3 mt-8 w-4/5 mx-auto relative">
