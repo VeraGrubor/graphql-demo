@@ -26,7 +26,8 @@ const postsQuery = gql`
   query($categoryId: ID!) {
     posts(categoryId: $categoryId) {
       id
-      title
+      title,
+      body
       category {
         id
         name

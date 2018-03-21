@@ -51,6 +51,15 @@
       </div><!-- form column -->
 
       <div class="w-1/4 count__boxes flex-wrap">
+      <div class="box block w-full xs:h-48 p-4 border rounded-lg shadow">
+          <h1 class="text-sm uppercase text-grey-darkest">Content</h1>
+          <div class="block mt-4">
+            <div class="block user__count text-xl text-center cursor-pointer" @click="generateRandomContent">
+              Random
+          </div>
+          </div><!-- block-->
+        </div><!-- state box -->
+
         <div class="box block w-full xs:h-48 border p-4 rounded-lg shadow">
           <h1 class="text-sm uppercase text-grey-darkest">Form values</h1>
           <div class="block mt-4">
@@ -155,6 +164,13 @@ export default {
           })
           console.error(error)
         })
+    },
+    generateRandomContent() {
+      //faker generate
+      let fakeEmail = this.$faker().internet.email();
+      let fakeName = this.$faker().name.findName();
+      this.form.name = fakeName;
+      this.form.email = fakeEmail;
     }
   }
 }

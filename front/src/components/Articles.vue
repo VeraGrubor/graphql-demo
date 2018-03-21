@@ -3,7 +3,8 @@
       <loading :show="!articles.length" title="There are currently no articles available."></loading>
       <div class="articles" v-if="articles.length">
         <transition name="slide-fade-left" appear>
-          <div class="article article--first rounded-lg overflow-hidden shadow-md relative" v-if="tran && firstPost">
+          <div class="article article--first rounded-lg overflow-hidden shadow-md relative" v-if="tran && firstPost"
+          @click="triggerOverlay(firstPost.title, firstPost.body, firstPost.category.name)">
             <progressive-img class="w-full"
                             v-if="firstImage"
                             :src="getPostImage(firstPost, firstImage)"
@@ -20,8 +21,10 @@
         </transition>
 
         <transition name="slide-fade-top" appear>
-          <div class="article article--between" v-if="tran && middlePosts">
-            <div v-for="(article,index) in middlePosts" :key="article.id" class="rounded-lg overflow-hidden shadow-md relative">
+          <div class="article article--between"
+               v-if="tran && middlePosts">
+            <div v-for="(article,index) in middlePosts" :key="article.id" class="rounded-lg overflow-hidden shadow-md relative"
+            @click="triggerOverlay(article.title, article.body, article.category.name)">
               <progressive-img class="w-full"
                               :src="getPostImage(article,middleImage,index)"
                               src-placeholder="/dist/img/blur.jpeg"
@@ -38,7 +41,8 @@
           </transition>
 
         <transition name="slide-fade-bottom" appear>
-          <div class="article article--last rounded-lg overflow-hidden shadow-md relative" v-if="tran && lastPost">
+          <div class="article article--last rounded-lg overflow-hidden shadow-md relative" v-if="tran && lastPost"
+          @click="triggerOverlay(lastPost.title, lastPost.body, lastPost.category.name)">
             <progressive-img class="w-full"
                             v-if="lastImage"
                             :src="getPostImage(lastPost,lastImage)"
@@ -54,20 +58,28 @@
           </div><!-- last one -->
         </transition>
       </div>
+
+    <overlay :show="showOverlay" :category="category"></overlay>
+
   </div>
 </template>
 
 <script>
 import Loading from './Loading'
+import Overlay from './Overlay';
 
 export default {
   name: 'articles',
   props: ['articles', 'tran'],
   components: {
-    Loading: Loading
+    Loading: Loading,
+    Overlay: Overlay
   },
   data() {
-    return {}
+    return {
+      showOverlay: false,
+      category: null
+    }
   },
   methods: {
     getRandomNumber(min, max) {
@@ -83,9 +95,23 @@ export default {
       } else {
         return 'dist/static/img/' + category + '/' + image + '.jpg'
       }
-    }
-  },
+    },
+    triggerOverlay(title, body, category) {
+      // set overlay to true and emit overlay
+      this.showOverlay = !this.showOverlay;
+      this.category = category ? category.toLowerCase().trim() : null
+      this.$emit('overlay', title, body, category)
+    },
+    closeOverlay() {
+      console.warn('should be false now')
+      this.showOverlay = false;
+    },
 
+  },
+  created() {
+    this.$on('childOverlay', this.closeOverlay);
+    this.$on('toggleOverlay', this.closeOverlay);
+  },
   computed: {
     firstPost: function() {
       return this.articles.length >= 1 ? this.articles[0] : null

@@ -1907,6 +1907,10 @@ extsprintf@^1.2.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/extsprintf/-/extsprintf-1.4.0.tgz#e2689f8f356fad62cca65a3a91c5df5f9551692f"
 
+faker@^3.0.1:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/faker/-/faker-3.1.0.tgz#0f908faf4e6ec02524e54a57e432c5c013e08c9f"
+
 falafel@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/falafel/-/falafel-2.1.0.tgz#96bb17761daba94f46d001738b3cedf3a67fe06c"
@@ -5335,6 +5339,10 @@ undefsafe@^2.0.2:
   dependencies:
     debug "^2.2.0"
 
+underscore@^1.8.3:
+  version "1.8.3"
+  resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.8.3.tgz#4f3fb53b106e6097fcf9cb4109f2a5e9bdfa5022"
+
 unicode-trie@^0.3.1:
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/unicode-trie/-/unicode-trie-0.3.1.tgz#d671dddd89101a08bac37b6a5161010602052085"
@@ -5511,6 +5519,13 @@ vue-apollo@^3.0.0-beta.4:
     lodash.debounce "^4.0.8"
     lodash.omit "^4.5.0"
     lodash.throttle "^4.1.1"
+
+vue-faker@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/vue-faker/-/vue-faker-1.0.1.tgz#3e27b2a658304fb608721a17642ec519e675029c"
+  dependencies:
+    faker "^3.0.1"
+    underscore "^1.8.3"
 
 vue-hot-reload-api@^2.0.1, vue-hot-reload-api@^2.2.0, vue-hot-reload-api@^2.2.4:
   version "2.3.0"

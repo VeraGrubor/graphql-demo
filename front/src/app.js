@@ -35,6 +35,7 @@ const apolloClient = new ApolloClient({
 Vue.use(VueApollo)
 Vue.use(VeeValidate)
 Vue.use(VueProgressiveImage)
+Vue.use(require('vue-faker'),{locale: "en_GB"});
 
 const apolloProvider = new VueApollo({
   defaultClient: apolloClient,

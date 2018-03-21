@@ -106,6 +106,16 @@
 
       <div class="w-1/4 count__boxes flex-wrap">
         <div class="box block w-full xs:h-48 p-4 border rounded-lg shadow">
+          <h1 class="text-sm uppercase text-grey-darkest">Content</h1>
+          <div class="block mt-4">
+            <div class="block user__count text-xl text-center cursor-pointer" @click="generateRandomContent">
+              Random
+          </div>
+          </div><!-- block-->
+        </div><!-- state box -->
+
+
+        <div class="box lg:mt-8 block w-full xs:h-48 p-4 border rounded-lg shadow">
           <h1 class="text-sm uppercase text-grey-darkest">Form values</h1>
           <div class="block mt-4">
             <ul class="list-reset">
@@ -283,6 +293,13 @@ export default {
           })
           console.error(error)
         })
+    },
+    generateRandomContent() {
+      //faker generate
+      let fakeArticle = this.$faker().fake('{{lorem.paragraphs}}<br> {{lorem.paragraph}}');
+      let fakeTitle = this.$faker().random.words();
+      this.form.body = fakeArticle;
+      this.form.title = fakeTitle;
     }
   }
 }
