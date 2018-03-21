@@ -8,3 +8,4 @@ export default { name: 'app' }
 
 <style lang="scss">
 @import './sass/app';
+</style>

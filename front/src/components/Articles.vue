@@ -52,7 +52,7 @@
               <div class="category uppercase opacity-75 text-lg">
                 {{lastPost.category.name}}
               </div>
-              <div class="title font-bold text-3xl max-w-xs">{{lastPost.title}}</div>
+              <div class="title font-bold text-xl max-w-xs">{{lastPost.title}}</div>
               <div class="author bg-white hover:bg-grey-lightest text-grey-darkest font-semibold py-2 px-4 rounded opacity-75 text-xs">{{lastPost.author.name}}</div>
             </div>
           </div><!-- last one -->
@@ -66,7 +66,7 @@
 
 <script>
 import Loading from './Loading'
-import Overlay from './Overlay';
+import Overlay from './Overlay'
 
 export default {
   name: 'articles',
@@ -98,19 +98,17 @@ export default {
     },
     triggerOverlay(title, body, category) {
       // set overlay to true and emit overlay
-      this.showOverlay = !this.showOverlay;
+      this.showOverlay = !this.showOverlay
       this.category = category ? category.toLowerCase().trim() : null
       this.$emit('overlay', title, body, category)
     },
     closeOverlay() {
-      console.warn('should be false now')
-      this.showOverlay = false;
-    },
-
+      this.showOverlay = false
+    }
   },
   created() {
-    this.$on('childOverlay', this.closeOverlay);
-    this.$on('toggleOverlay', this.closeOverlay);
+    this.$on('childOverlay', this.closeOverlay)
+    this.$on('toggleOverlay', this.closeOverlay)
   },
   computed: {
     firstPost: function() {
@@ -155,7 +153,7 @@ export default {
 
   @include media('>desktop') {
     grid-auto-row: 150px;
-   }
+  }
 
   @include media('<=tablet') {
     display: flex;
@@ -172,7 +170,6 @@ export default {
     .article-between {
       display: flex;
     }
-
   }
 
   .article {
@@ -225,7 +222,7 @@ export default {
       grid-area: bt;
       display: grid;
       grid-gap: 15px;
-      grid-template-rows: 2fr 2fr;
+      grid-template-rows: 2fr;
       grid-auto-flow: column;
 
       .title {
@@ -234,6 +231,15 @@ export default {
 
       .category {
         font-size: 0.8rem;
+      }
+
+      .progressive-image {
+        height: 100%;
+
+        img {
+          height: 100%;
+          object-fit: cover;
+        }
       }
     } // articles in middle
 

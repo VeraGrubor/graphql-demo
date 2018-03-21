@@ -1,5 +1,5 @@
 <template>
-  <div class="relative h-screen font-sans subpixel-antialiased" v-if="!loading">
+  <div class="relative h-screen subpixel-antialiased" v-if="!loading">
     <loading :show="loading" title="Loading..."></loading>
     <navigation @send="changeCategory" :active="activeCategory" :categories="categories"></navigation>
     <main class="w-4/5 mx-auto py-8 relative">
@@ -26,7 +26,7 @@ const postsQuery = gql`
   query($categoryId: ID!) {
     posts(categoryId: $categoryId) {
       id
-      title,
+      title
       body
       category {
         id
