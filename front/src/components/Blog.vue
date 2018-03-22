@@ -69,7 +69,7 @@ export default {
       update(data) {
         this.tran = false
         return data.posts
-      }
+      },
     },
     categories: {
       query: categoriesQuery,

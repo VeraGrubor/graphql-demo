@@ -60,7 +60,7 @@
           </div><!-- block-->
         </div><!-- state box -->
 
-        <div class="box block w-full xs:h-48 border p-4 rounded-lg shadow">
+        <div class="box block w-full xs:h-48 lg:mt-8 border p-4 rounded-lg shadow">
           <h1 class="text-sm uppercase text-grey-darkest">Form values</h1>
           <div class="block mt-4">
             <ul class="list-reset">
